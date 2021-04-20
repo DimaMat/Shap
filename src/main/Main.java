@@ -39,7 +39,7 @@ public class Main {
         Method methodFourth = shapes.get("Прямоугольный треугольник");
         Shape shape4 = methodFourth.getAnnotation(Shape.class);
         int[] side4 = shape4.parameterDimensions();
-        double squareFourth = (double) (side4[0] * side4[1])/2  ;
+        double squareFourth = (double) (side4[0] * side4[1])/2;
 
         try {
             graphicsEditor.addFigureToCanvas(shape1, squareFirst);

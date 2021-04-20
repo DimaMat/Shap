@@ -66,13 +66,18 @@ public class GraphicsEditor {
     }
 
     private boolean checkFigureSizeRightBottom (Shape figure) {
+        if ("Прямоугольник".equals(figure.name()) || "Прямоугольный треугольник".equals(figure.name())) {
+            return ((figure.dotX() + figure.parameterDimensions()[0] <= canvas.length)
+                    && ((figure.dotY() + figure.parameterDimensions()[1]) <= canvas[0].length));
+        }
         return ((figure.dotX() + figure.parameterDimensions()[0] <= canvas.length)
-                && ((figure.dotY() + figure.parameterDimensions()[1]) <= canvas[0].length));
+                && ((figure.dotY() + figure.parameterDimensions()[0]) <= canvas[0].length));
+
     }
     private boolean checkFigureSizeLeftTop (Shape figure) {
         if ("Круг".equals(figure.name())) {
             return ((figure.dotX() - figure.parameterDimensions()[0] >= 0)
-                    && ((figure.dotY() - figure.parameterDimensions()[1]) >= 0));
+                    && ((figure.dotY() - figure.parameterDimensions()[0]) >= 0));
         }
         return true;
     }
