@@ -19,37 +19,35 @@ public class GraphicsEditor {
                     .append(";")
                     .append(figure.dotY());
 
-            if ("Круг".equals(figure.name())) {
-                str.append("], радиусом [")
+            switch (figure.name()) {
+                case "Круг" -> str.append("], радиусом [")
                         .append(figure.parameterDimensions()[0])
                         .append(SQUARE)
                         .append(s)
                         .append("]");
-            }
-            else if ("Квадрат".equals(figure.name())) {
-                str.append("], стороной [")
+                case "Квадрат" -> str.append("], стороной [")
                         .append(figure.parameterDimensions()[0])
                         .append(SQUARE)
                         .append(s)
                         .append("]");
-            }
-            else if ("Прямоугольный треугольник".equals(figure.name())) {
-                str.append("], со сторонам [")
-                        .append(figure.parameterDimensions()[0])
-                        .append(", ")
-                        .append(figure.parameterDimensions()[1]);
-                        str.append(SQUARE)
-                        .append(s)
-                        .append("]");
-            }
-            else {
-                str.append("], со сторонами [");
-                str.append(figure.parameterDimensions()[0])
-                        .append(", ")
-                        .append(figure.parameterDimensions()[1]);
-                str.append(SQUARE)
-                        .append(s)
-                        .append("]");
+                case "Прямоугольный треугольник" -> {
+                    str.append("], со сторонам [")
+                            .append(figure.parameterDimensions()[0])
+                            .append(", ")
+                            .append(figure.parameterDimensions()[1]);
+                    str.append(SQUARE)
+                            .append(s)
+                            .append("]");
+                }
+                default -> {
+                    str.append("], со сторонами [");
+                    str.append(figure.parameterDimensions()[0])
+                            .append(", ")
+                            .append(figure.parameterDimensions()[1]);
+                    str.append(SQUARE)
+                            .append(s)
+                            .append("]");
+                }
             }
             System.out.println(str);
         } else {
@@ -59,29 +57,22 @@ public class GraphicsEditor {
         }
     }
     private boolean checkAdding (Shape figure) {
-        return checkPoint(figure.dotX(), figure.dotY()) && checkFigureSizeRightButtom(figure)
-                && checkFigureSizeLeftTop(figure) && checkFigureSizeRightTop(figure);
+        return checkPoint(figure.dotX(), figure.dotY()) && checkFigureSizeRightBottom(figure)
+                && checkFigureSizeLeftTop(figure);
     }
 
     private boolean checkPoint (int x, int y) {
         return (x <= canvas.length) && (y <= canvas[0].length);
     }
 
-    private boolean checkFigureSizeRightButtom (Shape figure) {
+    private boolean checkFigureSizeRightBottom (Shape figure) {
         return ((figure.dotX() + figure.parameterDimensions()[0] <= canvas.length)
-                && ((figure.dotY() + figure.parameterDimensions()[0]) <= canvas[0].length));
+                && ((figure.dotY() + figure.parameterDimensions()[1]) <= canvas[0].length));
     }
     private boolean checkFigureSizeLeftTop (Shape figure) {
         if ("Круг".equals(figure.name())) {
             return ((figure.dotX() - figure.parameterDimensions()[0] >= 0)
-                    && ((figure.dotY() - figure.parameterDimensions()[0]) >= 0));
-        }
-        return true;
-    }
-    private boolean checkFigureSizeRightTop (Shape figure) {
-        if ("Прямоугольный треугольник".equals(figure.name())) {
-            return ((figure.dotX() + figure.parameterDimensions()[0] <= canvas.length)
-                    && ((figure.dotY() - figure.parameterDimensions()[0]) >= 0));
+                    && ((figure.dotY() - figure.parameterDimensions()[1]) >= 0));
         }
         return true;
     }
